@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.team_name.label(class="form-control-label") }}
+                {% if form.team_name.errors %}
+                    {{ form.team_name.label(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.team_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.team_name(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.teams_channel_url.label(class="form-control-label") }}
+                {% if form.teams_channel_url.errors %}
+                    {{ form.teams_channel_url(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.teams_channel_url.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.teams_channel_url(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.enabled }} {{ form.enabled.label(class="form-control-label") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }} <a class="btn btn-outline-info" href="/notifications">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

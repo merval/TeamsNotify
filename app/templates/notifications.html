@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <h5>Notifications Management</h5>
+    This is a self service portal to add notifications for your teams channel.<br /> <br/>
+    <b>Follow these steps to configure an Incoming Webhook Connector.</b>
+<ol type="1">
+    <li>In Microsoft Teams, choose More options (⋯) next to the channel name you want notifications for and then choose Connectors.</li>
+    <li>Scroll through the list of Connectors to Incoming Webhook, and choose Add.</li>
+    <li>Enter a name for the webhook, upload an image to associate with data from the webhook (optional), and choose Create.</li>
+    <li>Copy the webhook URL and save it. You'll need the webhook URL for creating/editing a notification configuration.</li>
+    <li>Choose Done.</li>
+</ol>
+</div>
+<div>
+    <input type="button" class="btn btn-success" onclick="location.href='/notifications/new';" value="Add New" /> <br /> <br />
+</div>
+    {% for item in notification_settings %}
+    <article class="media content-section">
+        <div class="media-body">
+            Team Name:<b>{{ item.team_name }}</b> - <small>Last Updated: {{item.updated}}</small>
+        </div>
+        {% if user and user.admin %}
+        <div>
+            <a href="/notifications/edit/{{item.id}}" class="btn btn-outline-info btn-sm">Edit</a>
+        </div>
+        <div>
+            <a href="/notification/{{item.id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+        </div>
+        {% else %}
+        <div><small>(Contact an admin to modify)</small></div>
+        {% endif %}
+    </article>
+      {% endfor %}
+{% endblock content %}

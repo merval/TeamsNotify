@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+      <legend class="border-bottom mb-4">{{ legend }}</legend>
+  <div class="media">
+    <div class="media-body">
+      <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+          <div class="form-group">
+              {{ form.first_name.label }}
+              {{ form.first_name(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.last_name.label }}
+              {{ form.last_name(class="form-control form-control-lg") }}
+          </div>
+          {% if user.username != 'dwalker' %}
+            <div class="form-group">
+                {{ form.disabled }} {{ form.disabled.label}}
+            </div>
+            <div class="form-group">
+                {{ form.admin }} {{ form.admin.label}}
+            </div>
+          {% endif %}
+          <div class="form-group">
+              {{ form.user_id(hidden="hidden", readonly="readonly", value=user.id) }}
+              {{ form.update(class="btn btn-success") }} {{ form.delete(class="btn btn-danger") }}
+          </div>
+        </form>
+    </div>
+  </div>
+  <!-- FORM HERE -->
+</div>
+{% endblock content %}
